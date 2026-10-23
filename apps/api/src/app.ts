@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express, { type ErrorRequestHandler } from 'express'
 import cors from 'cors'
 import { pool } from './db.js'
+import { routes } from './routes.js'
 
 export function createApp() {
   const app = express()
@@ -41,6 +42,9 @@ export function createApp() {
     }
   })
 
+  // Rutas de la API.
+  app.use('/api/v1', routes)
+
   // Manejo de rutas inexistentes.
   app.use((_req, res) => {
     res.status(404).json({
@@ -70,3 +74,4 @@ export function createApp() {
 
   return app
 }
+
